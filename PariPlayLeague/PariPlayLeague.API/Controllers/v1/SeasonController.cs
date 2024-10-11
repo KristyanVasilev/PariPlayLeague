@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Azure.Core;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PariPlayLeague.API.Constants;
 using PariPlayLeague.API.Contracts.Requests.Seasons;
@@ -7,6 +8,7 @@ using PariPlayLeague.Application.Features.Seasons.Commands;
 using PariPlayLeague.Application.Features.Seasons.Queries;
 using PariPlayLeague.Application.Filters;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Threading;
 
 namespace PariPlayLeague.API.Controllers.v1
 {
@@ -128,6 +130,28 @@ namespace PariPlayLeague.API.Controllers.v1
             var query = new GetCurrentSeasonStandins();
 
             var result = await _mediator.Send(query, cancellationToken);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result.Data);
+        }
+
+        /// <summary>
+        /// update match result
+        /// </summary>
+        [HttpPatch("/api/v1/seasons/matches")]
+        [SwaggerResponse(201, "match result updatet")]
+        [SwaggerResponse(400, "Unable to update match result")]
+        [SwaggerResponse(422, "Validation exception")]
+        [SwaggerOperation(Tags = [EndpointTags.SEASON_TAG])]
+        public async Task<IActionResult> UpdateMatchResult([FromBody] MatchResultRequest request, CancellationToken cancellationToken = default)
+        {
+            var command = MatchResultRequest.MapToCommand(request);
+
+            var result = await _mediator.Send(command, cancellationToken);
 
             if (!result.Success)
             {

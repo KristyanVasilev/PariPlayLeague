@@ -50,6 +50,7 @@ namespace PariPlayLeague.Application.Features.Seasons.Commands
                 team.TeamSeasons.Add(teamSeason);
             }
 
+            season.StartDate = DateTime.Now;
             await _context.AddAsync(season, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
