@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PariPlayLeague.API.Middlewares;
 using PariPlayLeague.Infrastructure;
+using PariPlayLeague.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,9 @@ builder.Services.AddSwaggerGen();
 //Add Db context
 builder.Services.AddDbContext<PariPlayLeagueDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); // in the user secrets
+
+//register mediatR, validators or other services
+builder.Services.ApplicationLayerRegistration();
 
 var app = builder.Build();
 
