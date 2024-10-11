@@ -14,6 +14,8 @@ This project implements a football league management system, providing a compreh
 - **Statistics Retrieval**: Fetch current standings, past matches, and upcoming fixtures for teams in the active season.
 - **Error Handling**: Custom middleware for exception handling, ensuring user-friendly error messages.
 - **Cancellation Token Support**: Operations can be canceled with a timeout of 40 seconds to prevent long-running requests.
+- **Filtering**: Implement pagination and filtering for retrieving teams. This includes a GetAllTeamsFilter that allows users to search for teams by name, enhancing data retrieval efficiency.
+- **Validation**: Utilize FluentValidation to validate commands, such as team creation requests. For example, CreateTeamCommandValidator ensures that team names and president details meet specific criteria before processing.
 
 ## Technologies Used
 
