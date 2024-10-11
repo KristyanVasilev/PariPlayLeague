@@ -24,6 +24,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseMiddleware<CancellationTokenTimeoutMiddleware>();
+
 app.MapControllers();
 
 app.Run();
