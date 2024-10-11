@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PariPlayLeague.Domain\PariPlayLeague.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
